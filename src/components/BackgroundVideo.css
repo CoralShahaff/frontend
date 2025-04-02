@@ -1,0 +1,135 @@
+/* מסיר גלילה אופקית ושומר על התאמה למסך */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  position: relative; /* Ensure proper stacking context */
+  z-index: 0; /* Ensure the body doesn't overlap the button */
+}
+
+/* App title container */
+.app-title {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    z-index: 2; /* Ensure it appears above the video */
+    color: white;
+  }
+
+  /* App name styling with fiery effect */
+.app-name {
+    font-size: 5rem; /* Larger font size for the app name */
+    font-weight: bold;
+    color: transparent; /* Make the text transparent to show the gradient */
+    background-image: linear-gradient(45deg, #ff4500, #ff8c00, #ffd700); /* Gradient for fiery colors */
+    background-clip: text; /* Clips the gradient to the text */
+    -webkit-background-clip: text; /* Safari support */
+    text-shadow: 0 0 10px rgba(255, 69, 0, 0.8), /* Outer glow effect */
+                 0 0 20px rgba(255, 140, 0, 0.6), 
+                 0 0 30px rgba(255, 215, 0, 0.4);
+    animation: flicker 1.5s infinite; /* Flickering animation */
+    margin: 0;
+  }
+
+  /* Flickering animation for the fiery effect */
+@keyframes flicker {
+    0%, 100% {
+      text-shadow: 0 0 10px rgba(255, 69, 0, 0.8), 
+                   0 0 20px rgba(255, 140, 0, 0.6), 
+                   0 0 30px rgba(255, 215, 0, 0.4);
+    }
+    50% {
+      text-shadow: 0 0 15px rgba(255, 69, 0, 1), 
+                   0 0 25px rgba(255, 140, 0, 0.8), 
+                   0 0 35px rgba(255, 215, 0, 0.6);
+    }
+  }
+
+  /* App tagline styling */
+.app-tagline {
+    font-size: 1.5rem; /* Smaller font size for the tagline */
+    font-weight: bold;
+    color: rgba(0, 0, 0, 0.5); /* Slightly more transparent black */
+    margin: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Adds a subtle shadow for better visibility */
+  }
+
+/* וידאו כרקע */
+.video-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black; /* Fallback background color */
+  z-index: -2; /* Ensure the video background is behind everything */
+}
+
+/* ווידאו */
+.background-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1; /* Ensure the video is behind the button */
+  pointer-events: none; /* Prevent the video from blocking clicks */
+}
+
+/* תוכן הדף */
+.workout-page {
+    position: relative; /* כדי שהתוכן יוצג מעל הרקע */
+    z-index: 1; /* מעל הוידאו */
+    background-color: white;
+    padding: 20px;
+    min-height: 100vh;
+    width: 100vw; /* Ensures the page spans the full width of the viewport */
+    overflow-x: hidden; /* Hides any horizontal overflow */
+    margin-top: 100vh; /* Push the workout-page below the video */
+}
+
+/* Center the WorkoutForm content */
+.workout-page form {
+    margin: 0 auto; /* Centers the form horizontally */
+    max-width: 600px; /* Optional: Limits the form width */
+    width: 100%; /* Ensures the form spans the full width of its container */
+    box-sizing: border-box; /* Includes padding and border in width */
+  }
+
+/* עיצוב נוסף לתוכן התוכנית */
+.workout-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Button at the bottom of the video */
+.bottom-button {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  padding: 20px 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s, transform 0.3s;
+  z-index: 9999; /* Ensure the button is above the video */
+  pointer-events: auto; /* Ensure the button can receive click events */
+}
+
+.bottom-button:hover {
+  background-color: rgba(0, 0, 0, 0.7); /* Darker on hover */
+  transform: translateX(-50%) scale(1.05); /* Slightly enlarge on hover */
+}
