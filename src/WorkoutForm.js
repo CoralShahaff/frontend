@@ -59,30 +59,9 @@ const WorkoutForm = () => {
   };
   
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    // Validation logic
-    const newErrors = {};
-    if (!userInput.user_id.trim()) newErrors.user_id = true;
-    if (!userInput.age.trim()) newErrors.age = true;
-    if (!userInput.gender || userInput.gender === "Choose your gender") newErrors.gender = true;
-    if (!userInput.height.trim()) newErrors.height = true;
-    if (!userInput.weight.trim()) newErrors.weight = true;
-    if (!userInput.fitness_level || userInput.fitness_level === "Choose your fitness level") newErrors.fitness_level = true;
-    if (!userInput.goal || userInput.goal === "Choose your goal level") newErrors.goal = true;
-    if (!userInput.workout_area || userInput.workout_area === "") newErrors.workout_area = true;
-    if (!userInput.Desired_number_of_training_days || userInput.Desired_number_of_training_days < 3) newErrors.Desired_number_of_training_days = true;
-  
-    // If there are errors, highlight the fields and stop submission
-    if (Object.keys(newErrors).length > 0) {
-      console.log("Validation errors:", newErrors); // Debugging
-      setErrors(newErrors);
-      return;
-    }
-  
-    // Navigate to the WorkoutPlan page
-    navigate("/workout-plan");
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent default form submission
+    navigate("/workout-plan"); // Navigate to the WorkoutPlan page
   };
 
   const handleReturnToHome = () => {
