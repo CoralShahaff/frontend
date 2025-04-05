@@ -4,17 +4,19 @@ import './WorkoutForm.css'; // Import the CSS file
 
 const WorkoutForm = () => {
   const [userInput, setUserInput] = useState({
-    user_id: "",
-    age: "",
-    gender: "",
-    height: "",
-    weight: "",
-    fitness_level: "",
-    goal: "",
-    workout_area: "",
-    Desired_number_of_training_days: 3,
-    equipment: [], // Updated field for equipment
-    
+    user_id: "", // String
+    fitness_level: "", // String: beginner, intermediate, advanced
+    goal: "", // String: strength, endurance, weight_loss, flexibility, muscle_gain
+    workout_days: 3, // Integer: 3-7
+    gender: "", // String: male, female
+    height: 0, // Integer
+    weight: 0, // Integer
+    age: 0, // Integer
+    experience: "", // String: e.g., "2 years"
+    Desired_number_of_training_days: 3, // Integer
+    workout_area: "", // String: at_home, at_gym, outside
+    Equipment: "", // String: Gym_Equipment, resistance_bands, etc.
+    equipment: [], // Initialize as an empty array
   });
 
   const [errors, setErrors] = useState({}); // State to track errors
@@ -59,9 +61,32 @@ const WorkoutForm = () => {
   };
   
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent default form submission
-    navigate("/workout-plan"); // Navigate to the WorkoutPlan page
+  
+    console.log("User Input:", userInput); // Log the user input to the console
+  
+    try {
+      const response = await fetch("http://127.0.0.1:8000/generate_workout_plan", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userInput), // Send the user input as JSON
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to generate workout plan");
+      }
+  
+      const data = await response.json(); // Parse the response JSON
+      console.log("Workout Plan:", data);
+  
+      // Navigate to the WorkoutPlan page with the workout plan data
+      navigate("/workout-plan", { state: { workoutPlan: data.workout_plan } });
+    } catch (error) {
+      console.error("Error generating workout plan:", error);
+    }
   };
 
   const handleReturnToHome = () => {
@@ -127,6 +152,18 @@ const WorkoutForm = () => {
         className={errors.height ? "error" : ""}
       />
     </div>
+    <div className="form-group">
+  <label htmlFor="weight">Weight (kg)</label>
+  <input
+    type="number"
+    id="weight"
+    name="weight"
+    value={userInput.weight}
+    onChange={handleChange}
+    placeholder="Enter your weight in kg"
+    className={errors.weight ? "error" : ""}
+  />
+</div>
     <div className="form-group">
       <label htmlFor="fitness_level">Fitness Level</label>
       <select

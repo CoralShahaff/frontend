@@ -18,9 +18,51 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   }
   
-  .workout-plan-description {
-    font-size: 1.2rem;
-    text-align: center;
+  .workout-plan-content {
+    width: 100%;
     max-width: 800px;
-    line-height: 1.6;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 70vh; /* Set a maximum height for the container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    scrollbar-width: thin; /* For Firefox: thin scrollbar */
+    scrollbar-color: #6dd5ed transparent; /* For Firefox: scrollbar colors */
+}
+
+/* For Webkit-based browsers (Chrome, Edge, Safari) */
+.workout-plan-content::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.workout-plan-content::-webkit-scrollbar-thumb {
+    background-color: #6dd5ed; /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.workout-plan-content::-webkit-scrollbar-track {
+    background: transparent; /* Background of the scrollbar track */
+}
+
+  .workout-day {
+    margin-bottom: 20px;
   }
+
+  .workout-day h2 {
+    font-size: 1.5rem;
+    color: #6dd5ed;
+    margin-bottom: 10px;
+  }
+
+  .workout-day ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .workout-day li {
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  
