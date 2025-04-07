@@ -12,7 +12,6 @@ const WorkoutForm = () => {
     height: 0, // Integer
     weight: 0, // Integer
     age: 0, // Integer
-    experience: "", // String: e.g., "2 years"
     Desired_number_of_training_days: 3, // Integer
     workout_area: "", // String: at_home, at_gym, outside
     Equipment: "", // String: Gym_Equipment, resistance_bands, etc.

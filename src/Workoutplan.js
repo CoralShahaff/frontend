@@ -6,24 +6,98 @@ const WorkoutPlan = () => {
   const location = useLocation();
   const workoutPlan = location.state?.workoutPlan; // Access the workout plan data
 
+  console.log("Workout Plan Data:", workoutPlan); // Debugging: Log the workout plan data
+
   if (!workoutPlan) {
     return <p>Loading workout plan...</p>; // Show a loading message if no data is available
   }
+
+  // Separate sections into pre-days, days, and post-days
+  const preDaysSections = {};
+  const postDaysSections = {};
+  const days = workoutPlan.days || [];
+
+  Object.entries(workoutPlan).forEach(([key, value]) => {
+    if (key === "days") return; // Skip "days" for now
+    if (!value) return; // Skip empty or null values
+
+    // Determine if the section comes before or after "days"
+    if (days.length === 0 || key.toLowerCase() < "days") {
+      preDaysSections[key] = value;
+    } else {
+      postDaysSections[key] = value;
+    }
+  });
 
   return (
     <div className="workout-plan-page">
       <h1 className="workout-plan-title">Your Personalized Workout Plan</h1>
       <div className="workout-plan-content">
-        {Object.keys(workoutPlan).map((day) => (
-          <div key={day} className="workout-day">
-            <h2>{day.replace("_", " ").toUpperCase()}</h2>
-            <ul>
-              {workoutPlan[day].details.map((detail, index) => (
-                <li key={index}>{detail}</li>
-              ))}
-            </ul>
+        {/* Always Render Formatted Workout Plan */}
+        <h2>Formatted Workout Plan</h2>
+
+        {/* Render Pre-Days Sections */}
+        {Object.entries(preDaysSections).map(([key, value]) => {
+          const title = key
+            .replace(/_/g, " ") // Replace underscores with spaces
+            .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize the first letter of each word
+
+          return (
+            <div key={key} className={`${key}-section`}>
+              <h2>{title}</h2>
+              {Array.isArray(value) ? (
+                <ul>
+                  {value.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>{value}</p>
+              )}
+            </div>
+          );
+        })}
+
+        {/* Render Days */}
+        {days.map((day, index) => (
+          <div key={index} className="workout-day">
+            <h2>{day.day}</h2>
+            <div className="warm-up-section">
+              <h3>Warm-up</h3>
+              <p>{day.warm_up || "No warm-up information provided."}</p>
+            </div>
+            <div className="workout-section">
+              <h3>Workout Exercises</h3>
+              <p>{day.workout_exercises || "No workout exercises provided."}</p>
+            </div>
+            <div className="cool-down-section">
+              <h3>Cool-down</h3>
+              <p>{day.cool_down || "No cool-down information provided."}</p>
+            </div>
           </div>
         ))}
+
+        {/* Render Post-Days Sections */}
+        {Object.entries(postDaysSections).map(([key, value]) => {
+          const title = key
+            .replace(/_/g, " ") // Replace underscores with spaces
+            .replace(/\b\w/g, (char) => char.toUpperCase()); // Capitalize the first letter of each word
+
+          return (
+            <div key={key} className={`${key}-section`}>
+              <h2>{title}</h2>
+              {Array.isArray(value) ? (
+                <ul>
+                  {value.map((item, index) => (
+                    <li key={index}>{item}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>{value}</p>
+              )}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

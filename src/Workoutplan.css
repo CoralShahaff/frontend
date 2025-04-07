@@ -45,6 +45,10 @@
     background: transparent; /* Background of the scrollbar track */
 }
 
+.workout-plan-content h2 {
+    color: white; /* Ensure the text is visible */
+  }
+
   .workout-day {
     margin-bottom: 20px;
   }
@@ -63,6 +67,77 @@
   .workout-day li {
     margin-bottom: 10px;
     font-size: 1rem;
+  }
+
+  .warm-up-section,
+.workout-section,
+.cool-down-section {
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.warm-up-section {
+    background-color: rgba(237, 109, 109, 0.2); /* Light red background */
+    border-left: 4px solid #ed6d6d; /* Red border */
+}
+
+  .workout-section {
+    background-color: rgba(109, 237, 109, 0.2); /* Light green background */
+    border-left: 4px solid #6ded6d; /* Green border */
+  }
+
+  .cool-down-section {
+    background-color: rgba(109, 213, 237, 0.2); /* Light blue background */
+    border-left: 4px solid #6dd5ed; /* Blue border */
+}
+
+  .warm-up-section h3,
+.workout-section h3,
+.cool-down-section h3 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.warm-up-section ul,
+.workout-section ul,
+.cool-down-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.warm-up-section li,
+.workout-section li,
+.cool-down-section li {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.extra-information-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .extra-information-section h2 {
+    font-size: 1.5rem;
+    color: #6dd5ed;
+    margin-bottom: 10px;
+  }
+
+  .extra-information-section ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .extra-information-section li {
+    margin-bottom: 8px;
+    font-size: 1rem;
+    color: #ffffff;
   }
 
   
