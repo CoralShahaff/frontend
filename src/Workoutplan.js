@@ -16,16 +16,26 @@ const WorkoutPlan = () => {
   const preDaysSections = {};
   const postDaysSections = {};
   const days = workoutPlan.days || [];
+  let foundDaysKey = false; // Flag to track when we encounter the "days" key
 
   Object.entries(workoutPlan).forEach(([key, value]) => {
-    if (key === "days") return; // Skip "days" for now
+    if (key === "days") {
+      foundDaysKey = true; // Mark that we've encountered the "days" key
+      return; // Skip "days" for now
+    }
     if (!value) return; // Skip empty or null values
 
-    // Determine if the section comes before or after "days"
-    if (days.length === 0 || key.toLowerCase() < "days") {
+    // Always categorize "introduction" as a pre-days section
+    if (key.toLowerCase() === "introduction") {
       preDaysSections[key] = value;
+      return;
+    }
+
+    // Dynamically determine if the section comes before or after "days"
+    if (!foundDaysKey) {
+      preDaysSections[key] = value; // Add to pre-days if we haven't encountered "days" yet
     } else {
-      postDaysSections[key] = value;
+      postDaysSections[key] = value; // Add to post-days if we have already encountered "days"
     }
   });
 
